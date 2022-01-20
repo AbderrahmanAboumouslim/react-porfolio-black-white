@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Github, Facebook, Twitter, YouTube } from "../components/AllSvg";
 
@@ -7,24 +6,27 @@ const SocialMedia = () => {
   return (
     <Icons>
       <div>
-        <Link to="/">
+        <a target="_blank" href="https://github.com/AbderrahmanAboumouslim">
           <Github width={30} height={30} fill="currentColor" />
-        </Link>
+        </a>
       </div>
       <div>
-        <Link to="/">
+        <a target="_blank" href="https://www.facebook.com/abdovsnoone/">
           <Facebook width={30} height={30} fill="currentColor" />
-        </Link>
+        </a>
       </div>
       <div>
-        <Link to="/">
+        <a target="_blank" href="https://twitter.com/its_Rokinos">
           <Twitter width={30} height={30} fill="currentColor" />
-        </Link>
+        </a>
       </div>
       <div>
-        <Link to="/">
+        <a
+          target="_blank"
+          href="https://www.youtube.com/channel/UCrE9losqduquJpAGJ4vNA0A"
+        >
           <YouTube width={30} height={30} fill="currentColor" />
-        </Link>
+        </a>
       </div>
       <Line />
     </Icons>

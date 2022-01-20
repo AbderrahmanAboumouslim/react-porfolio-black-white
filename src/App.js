@@ -15,7 +15,7 @@ const App = () => {
       <GlobalStyle />
       <ThemeProvider theme={LightTheme}>
         <Routes>
-          <Route path="/main" element={<Main />} />
+          <Route path="/" element={<Main />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
