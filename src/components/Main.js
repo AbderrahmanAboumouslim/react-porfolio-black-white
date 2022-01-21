@@ -1,17 +1,23 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import styled, { keyframes } from "styled-components";
 import PowerButton from "../subComponents/PowerButton";
 import LogoC from "../subComponents/LogoC";
+import { YinYang } from "../components/AllSvg";
 import SocialMedia from "../subComponents/SocialMedia";
 import { Link } from "react-router-dom";
+import { GiClick } from "react-icons/gi";
+import Introduction from "../subComponents/Introduction";
 
 const Main = () => {
+  const [centerClick, setCenterClick] = useState(false);
+  const handleClick = () => setCenterClick(!centerClick);
+
   return (
     <MainContainer>
       <Container>
         <PowerButton />
-        <LogoC />
-        <SocialMedia />
+        <LogoC theme={centerClick ? "dark" : "light"} />
+        <SocialMedia theme={centerClick ? "dark" : "light"} />
         <Contact target="_blank" href="mailto:abdourokinos@gmail.com">
           <h5>Message...</h5>
         </Contact>
@@ -20,13 +26,13 @@ const Main = () => {
             <h2>Blog</h2>
           </Link>
         </BLOG>
-        <PROJECTS>
+        <PROJECTS click={centerClick}>
           <Link to="/projects">
             <h2>Projects</h2>
           </Link>
         </PROJECTS>
         <BottomComponents>
-          <ABOUT>
+          <ABOUT click={centerClick}>
             <Link to="/about">
               <h2>About</h2>
             </Link>
@@ -37,7 +43,24 @@ const Main = () => {
             </Link>
           </SKILLS>
         </BottomComponents>
+        <Center click={centerClick} onClick={() => handleClick()}>
+          <YinYang
+            width={centerClick ? 120 : 170}
+            height={centerClick ? 120 : 170}
+            fill="currentColor"
+          />
+          <span>
+            <GiClick />
+          </span>
+        </Center>
+        <DarkSide click={centerClick} />
       </Container>
+      {centerClick ? (
+        <Introduction
+          theme={centerClick ? "dark" : "light"}
+          centerClick={centerClick}
+        />
+      ) : null}
     </MainContainer>
   );
 };
@@ -88,13 +111,14 @@ const PROJECTS = styled.div`
   position: absolute;
   top: 50%;
   left: calc(3rem + 2vw);
-  z-index: 1;
+  z-index: 2;
   transform: translate(-50%, -50%) rotate(-90deg);
 
   a {
-    color: ${(props) => props.theme.text};
+    color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
     text-decoration: none;
     display: block;
+    transition: all 1s linear;
   }
 `;
 
@@ -109,11 +133,12 @@ const BottomComponents = styled.div`
 `;
 
 const ABOUT = styled.div`
-  z-index: 1;
+  z-index: 2;
 
   a {
-    color: ${(props) => props.theme.text};
+    color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
     text-decoration: none;
+    transition: all 1s linear;
   }
 `;
 const SKILLS = styled.div`
@@ -123,6 +148,61 @@ const SKILLS = styled.div`
     color: ${(props) => props.theme.text};
     text-decoration: none;
   }
+`;
+
+const rotate = keyframes`
+ from{
+   transform: rotate(0);
+ }
+ to{
+   transform: rotate(360deg);
+ }
+ `;
+const opacity = keyframes`
+ from{
+   transform: scale(0.8);
+  }
+  to{
+   transform: scale(1);
+ }
+ `;
+
+const Center = styled.button`
+  position: absolute;
+  top: ${(props) => (props.click ? 80 : 50)}%;
+  left: ${(props) => (props.click ? 90 : 50)}%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  transition: all 0.9s ease;
+  cursor: pointer;
+  & > :first-child {
+    animation: ${rotate} infinite 1.5s linear;
+  }
+  & > :last-child {
+    display: ${(props) => (props.click ? "none" : "inline-block")};
+    color: ${(props) => props.theme.text};
+    font-size: 1.5rem;
+    padding-top: 0.5rem;
+    animation: ${opacity} infinite 1s linear;
+  }
+`;
+
+const DarkSide = styled.div`
+  position: absolute;
+  background: #000;
+  top: 0;
+  bottom: 0;
+  right: 50%;
+  width: ${(props) => (props.click ? 100 : 0)}%;
+  height: ${(props) => (props.click ? 100 : 0)}%;
+  z-index: 1;
+  transition: height 0.5s ease, width 1s ease 0.5s;
 `;
 
 export default Main;

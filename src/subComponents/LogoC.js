@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-
-const LogoC = () => {
-  return <Logo>CV</Logo>;
+import { DarkTheme } from "../components/Themes";
+const LogoC = (props) => {
+  return <Logo color={props.theme}>CV</Logo>;
 };
 
 const Logo = styled.h1`
   display: inline-block;
-  color: ${(props) => props.theme.text};
+  color: ${(props) =>
+    props.color === "dark" ? DarkTheme.text : DarkTheme.body};
   font-family: "pacifico", cursive;
   position: fixed;
   top: 2rem;

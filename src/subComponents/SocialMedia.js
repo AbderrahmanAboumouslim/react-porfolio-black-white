@@ -1,23 +1,36 @@
 import React from "react";
 import styled from "styled-components";
 import { Github, Facebook, Twitter, YouTube } from "../components/AllSvg";
+import { DarkTheme } from "../components/Themes";
 
-const SocialMedia = () => {
+const SocialMedia = (props) => {
   return (
     <Icons>
       <div>
         <a target="_blank" href="https://github.com/AbderrahmanAboumouslim">
-          <Github width={30} height={30} fill="currentColor" />
+          <Github
+            width={30}
+            height={30}
+            fill={props.theme === "dark" ? DarkTheme.text : DarkTheme.body}
+          />
         </a>
       </div>
       <div>
         <a target="_blank" href="https://www.facebook.com/abdovsnoone/">
-          <Facebook width={30} height={30} fill="currentColor" />
+          <Facebook
+            width={30}
+            height={30}
+            fill={props.theme === "dark" ? DarkTheme.text : DarkTheme.body}
+          />
         </a>
       </div>
       <div>
         <a target="_blank" href="https://twitter.com/its_Rokinos">
-          <Twitter width={30} height={30} fill="currentColor" />
+          <Twitter
+            width={30}
+            height={30}
+            fill={props.theme === "dark" ? DarkTheme.text : DarkTheme.body}
+          />
         </a>
       </div>
       <div>
@@ -25,10 +38,14 @@ const SocialMedia = () => {
           target="_blank"
           href="https://www.youtube.com/channel/UCrE9losqduquJpAGJ4vNA0A"
         >
-          <YouTube width={30} height={30} fill="currentColor" />
+          <YouTube
+            width={30}
+            height={30}
+            fill={props.theme === "dark" ? DarkTheme.text : DarkTheme.body}
+          />
         </a>
       </div>
-      <Line />
+      <Line color={props.theme} />
     </Icons>
   );
 };
@@ -53,7 +70,8 @@ const Icons = styled.div`
 const Line = styled.span`
   width: 2px;
   height: 8rem;
-  background-color: ${(props) => props.theme.text};
+  background-color: ${(props) =>
+    props.color === "dark" ? DarkTheme.text : DarkTheme.body};
 `;
 
 export default SocialMedia;
