@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import MyImage from "../assets/Images/profile-img.png";
+import { motion } from "framer-motion";
 
 const Introduction = () => {
   return (
-    <Box>
+    <Box
+      initial={{ height: 0 }}
+      animate={{ height: "55vh" }}
+      transition={{ type: "spring", duration: 2, delay: 1 }}
+    >
       <LittleBox>
         <Text>
           <h1>Hi,</h1>
@@ -16,15 +21,19 @@ const Introduction = () => {
         </Text>
       </LittleBox>
       <LittleBox>
-        <div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.5 }}
+        >
           <img src={MyImage} alt="Aboumouslim Abderrahman" />
-        </div>
+        </motion.div>
       </LittleBox>
     </Box>
   );
 };
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -54,7 +63,6 @@ const Box = styled.div`
 const LittleBox = styled.div`
   width: 50%;
   position: relative;
-  padding: 2rem;
   display: flex;
 
   img {
@@ -69,6 +77,7 @@ const LittleBox = styled.div`
 
 const Text = styled.div`
   font-size: calc(1em + 1.5vw);
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

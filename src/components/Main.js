@@ -7,7 +7,7 @@ import SocialMedia from "../subComponents/SocialMedia";
 import { Link } from "react-router-dom";
 import { GiClick } from "react-icons/gi";
 import Introduction from "../subComponents/Introduction";
-
+import { motion } from "framer-motion";
 const Main = () => {
   const [centerClick, setCenterClick] = useState(false);
   const handleClick = () => setCenterClick(!centerClick);
@@ -19,27 +19,37 @@ const Main = () => {
         <LogoC theme={centerClick ? "dark" : "light"} />
         <SocialMedia theme={centerClick ? "dark" : "light"} />
         <Contact target="_blank" href="mailto:abdourokinos@gmail.com">
-          <h5>Message...</h5>
+          <motion.h5 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            Message...
+          </motion.h5>
         </Contact>
         <BLOG>
           <Link to="/blog">
-            <h2>Blog</h2>
+            <motion.h2 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              Blog
+            </motion.h2>
           </Link>
         </BLOG>
         <PROJECTS click={centerClick}>
           <Link to="/projects">
-            <h2>Projects</h2>
+            <motion.h2 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              Projects
+            </motion.h2>
           </Link>
         </PROJECTS>
         <BottomComponents>
           <ABOUT click={centerClick}>
             <Link to="/about">
-              <h2>About</h2>
+              <motion.h2 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                About
+              </motion.h2>
             </Link>
           </ABOUT>
           <SKILLS>
             <Link to="/skills">
-              <h2>Skills</h2>
+              <motion.h2 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                Skills
+              </motion.h2>
             </Link>
           </SKILLS>
         </BottomComponents>
