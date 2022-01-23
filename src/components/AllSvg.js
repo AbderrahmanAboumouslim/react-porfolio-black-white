@@ -134,7 +134,7 @@ export const Anchor = (props) => {
   );
 };
 
-export const Link = (props) => {
+export const Chain = (props) => {
   return (
     <svg
       aria-hidden="true"

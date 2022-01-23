@@ -9,7 +9,7 @@ const BlogContent = ({ name, tags, date, imgSrc, link }) => {
       <Title>{name}</Title>
       <HashTags>
         {tags.map((tag, id) => {
-          return <Tag>#{tag}</Tag>;
+          return <Tag key={id}>#{tag}</Tag>;
         })}
       </HashTags>
       <Date>{date}</Date>

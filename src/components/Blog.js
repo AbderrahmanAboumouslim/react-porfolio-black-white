@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import blogImg from "../assets/Images/blog-bcg.jpg";
 import LogoC from "../subComponents/LogoC";
@@ -6,14 +6,22 @@ import PowerButton from "../subComponents/PowerButton";
 import SocialMedia from "../subComponents/SocialMedia";
 import { Blogs } from "../data/Blogs";
 import BlogContent from "./BlogContent";
+import AnchorComponent from "../subComponents/AnchorComponent";
 
 const Blog = () => {
+  const [number, setNumber] = useState(0);
+  useEffect(() => {
+    let num = (window.innerHeight - 70) / 30;
+    setNumber(parseInt(num));
+  }, []);
+
   return (
     <Wrapper>
       <Container>
         <LogoC />
         <PowerButton />
         <SocialMedia />
+        <AnchorComponent number={number} />
         <Center>
           <Grid>
             {Blogs.map((blog) => {
