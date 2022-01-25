@@ -7,18 +7,35 @@ import SocialMedia from "../subComponents/SocialMedia";
 import { ProjectsData } from "../data/ProjectsData";
 import Card from "../subComponents/Card";
 import { YinYang } from "./AllSvg";
+import { motion } from "framer-motion";
 
 const Projects = () => {
   const ref = useRef();
+  const yinyang = useRef();
   useEffect(() => {
     let element = ref.current;
+    let yinElement = yinyang.current;
     const slide = () => {
       element.style.transform = `translateX(${-window.pageYOffset}px)`;
+      yinElement.style.transform = `rotate(${window.pageYOffset}deg)`;
     };
 
     window.addEventListener("scroll", slide);
     return () => window.removeEventListener("scroll", slide);
   }, []);
+
+  // framer-motion settings
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.5,
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
     <ThemeProvider theme={DarkTheme}>
       <Wrapper>
@@ -28,7 +45,7 @@ const Projects = () => {
         <PowerButton />
 
         {/* Projects */}
-        <Box ref={ref}>
+        <Box ref={ref} variants={container} initial="hidden" animate="show">
           {ProjectsData.map((p) => {
             return <Card key={p.id} data={p} />;
           })}
@@ -36,8 +53,8 @@ const Projects = () => {
 
         {/* end of about */}
 
-        <Rotate>
-          <YinYang width={100} height={100} fill={DarkTheme.text} />
+        <Rotate ref={yinyang}>
+          <YinYang width={80} height={80} fill={DarkTheme.text} />
         </Rotate>
       </Wrapper>
     </ThemeProvider>
@@ -51,7 +68,7 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   color: ${(props) => props.theme.text};
   position: fixed;
   top: 12rem;
@@ -60,21 +77,13 @@ const Box = styled.div`
   display: flex;
 `;
 
-const rotate = keyframes`
- from{
-   transform: rotate(0);
- }
- to{
-   transform: rotate(360deg);
- }
- `;
-
 const Rotate = styled.div`
   position: fixed;
   top: 2rem;
   right: 2rem;
   color: white;
-  animation: ${rotate} 1s linear infinite;
+  width: 80px;
+  height: 80px;
 `;
 
 export default Projects;

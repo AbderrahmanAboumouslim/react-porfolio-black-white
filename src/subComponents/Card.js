@@ -1,9 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 import { Github } from "../components/AllSvg";
+import { motion } from "framer-motion";
 const Card = ({ data: { id, name, description, tags, demo, github } }) => {
+  const animated = {
+    hidden: {
+      scale: 0,
+    },
+    show: {
+      scale: 1,
+      transition: {
+        type: "spring",
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <Box key={id}>
+    <Box key={id} variants={animated}>
       <Title>{name}</Title>
       <Description>{description}</Description>
       <Tags>
@@ -23,7 +37,7 @@ const Card = ({ data: { id, name, description, tags, demo, github } }) => {
   );
 };
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   width: 16rem;
   height: 50vh;
   background-color: ${(props) => props.theme.text};
