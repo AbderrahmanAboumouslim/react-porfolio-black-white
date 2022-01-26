@@ -77,8 +77,8 @@ const fly = keyframes`
 
 const Image = styled.div`
   position: absolute;
-  top: 10%;
-  right: 5%;
+  top: 30%;
+  right: 10%;
   width: 20vw;
   animation: ${fly} 3.5s ease infinite;
 
