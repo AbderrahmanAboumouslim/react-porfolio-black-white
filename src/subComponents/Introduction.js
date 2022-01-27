@@ -7,20 +7,19 @@ const Introduction = () => {
   return (
     <Box
       initial={{ height: 0 }}
-      animate={{ height: "55vh" }}
+      animate={{ height: "75vh" }}
       transition={{ type: "spring", duration: 2, delay: 1 }}
     >
-      <LittleBox>
+      <LittleBox className="a">
         <Text>
           <h1>Hi,</h1>
           <h3>I'm Aboumouslim.</h3>
           <h6>
-            Front-end web developer, specializiing in mostly JS (ReactJS), but
-            also write HTML, CSS and some other stuff.
+            Front-end web developer, specializiing in mostly JS (ReactJS).
           </h6>
         </Text>
       </LittleBox>
-      <LittleBox>
+      <LittleBox className="b">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -39,31 +38,28 @@ const Box = styled(motion.div)`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 65vw;
-  display: flex;
   height: 55vh;
+  display: flex;
   z-index: 1;
-  background: linear-gradient(
-        to right,
-        ${(props) => props.theme.body} 50%,
-        ${(props) => props.theme.text} 50%
-      )
-      bottom,
-    linear-gradient(
-        to right,
-        ${(props) => props.theme.body} 50%,
-        ${(props) => props.theme.text} 50%
-      )
-      top;
-  background-repeat: no-repeat;
-  background-size: 100% 2px;
-  border-left: 2px solid ${(props) => props.theme.body};
-  border-right: 2px solid ${(props) => props.theme.text};
+
+  border: 4px solid transparent;
+  border-image: linear-gradient(45deg, #ff0, #f0f, #f00, #00f, #0f0);
+  border-image-slice: 1;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    width: 70vw;
+    height: 90vh;
+
+    flex-direction: column;
+  }
 `;
 
 const LittleBox = styled.div`
-  width: 50%;
+  width: 100%;
   position: relative;
   display: flex;
+  height: 100%;
 
   img {
     position: absolute;
@@ -71,7 +67,7 @@ const LittleBox = styled.div`
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;
-    height: auto;
+    height: 120%;
   }
 `;
 
@@ -82,6 +78,11 @@ const Text = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   color: ${(props) => props.theme.body};
+
+  @media (max-width: 768px) {
+    transform: scale(0.9);
+    padding: 0.5rem;
+  }
 
   & > *:last-child {
     color: ${(props) => `rgba(${props.theme.bodyRgba}, 0.5)`};

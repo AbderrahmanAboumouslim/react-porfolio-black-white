@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import PowerButton from "../subComponents/PowerButton";
 import LogoC from "../subComponents/LogoC";
@@ -17,7 +17,19 @@ const Main = () => {
       <Container>
         <PowerButton />
         <LogoC theme={centerClick ? "dark" : "light"} />
-        <SocialMedia theme={centerClick ? "dark" : "light"} />
+        <SocialMedia
+          theme={
+            centerClick === false
+              ? "light"
+              : "dark" && window.innerWidth <= 768
+              ? centerClick
+                ? "light"
+                : "dark"
+              : !centerClick
+              ? "light"
+              : "dark"
+          }
+        />
         <Contact target="_blank" href="mailto:abdourokinos@gmail.com">
           <motion.h5 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             Message...
@@ -55,8 +67,8 @@ const Main = () => {
         </BottomComponents>
         <Center click={centerClick} onClick={() => handleClick()}>
           <YinYang
-            width={centerClick ? 120 : 170}
-            height={centerClick ? 120 : 170}
+            width={centerClick ? 90 : 170}
+            height={centerClick ? 90 : 170}
             fill="currentColor"
           />
           <span>
@@ -190,9 +202,16 @@ const Center = styled.button`
   outline: none;
   background-color: transparent;
   transition: all 0.9s ease;
+  z-index: 5;
   cursor: pointer;
   & > :first-child {
     animation: ${rotate} infinite 1.5s linear;
+
+    @media (max-width: 768px) {
+      width: ${(props) => (props.click ? "50px" : "100px")};
+      height: ${(props) => (props.click ? "50px" : "100px")};
+      margin-top: 1.3rem;
+    }
   }
   & > :last-child {
     display: ${(props) => (props.click ? "none" : "inline-block")};
@@ -200,6 +219,11 @@ const Center = styled.button`
     font-size: 1.5rem;
     padding-top: 0.5rem;
     animation: ${opacity} infinite 1s linear;
+  }
+
+  @media (max-width: 768px) {
+    top: ${(props) => (props.click ? 90 : 50)}%;
+    left: ${(props) => (props.click ? 85 : 50)}%;
   }
 `;
 
@@ -213,6 +237,15 @@ const DarkSide = styled.div`
   height: ${(props) => (props.click ? 100 : 0)}%;
   z-index: 1;
   transition: height 0.5s ease, width 1s ease 0.5s;
+
+  @media (max-width: 768px) {
+    /* bottom: 50%; */
+    left: 0;
+    right: 0;
+    top: 0;
+    width: ${(props) => (props.click ? 100 : 0)}%;
+    height: ${(props) => (props.click ? 50 : 0)}%;
+  }
 `;
 
 export default Main;
