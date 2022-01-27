@@ -16,7 +16,7 @@ const Projects = () => {
     let element = ref.current;
     let yinElement = yinyang.current;
     const slide = () => {
-      element.style.transform = `translateX(${-window.pageYOffset}px)`;
+      element.style.transform = `translateY(${-window.pageYOffset}px)`;
       yinElement.style.transform = `rotate(${window.pageYOffset}deg)`;
     };
 
@@ -70,11 +70,13 @@ const Wrapper = styled.div`
 
 const Box = styled(motion.div)`
   color: ${(props) => props.theme.text};
-  position: fixed;
-  top: 12rem;
-  left: calc(10rem + 10vw);
-  height: 40vh;
+  /* position: fixed; */
   display: flex;
+  align-items: center;
+  margin-top: 12rem;
+
+  height: 70vh;
+  flex-direction: column;
 `;
 
 const Rotate = styled.div`
@@ -84,6 +86,15 @@ const Rotate = styled.div`
   color: white;
   width: 80px;
   height: 80px;
+
+  @media (max-width: 700px) {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+  @media (max-width: 500px) {
+    top: 0.2rem;
+    right: 0.2rem;
+  }
 `;
 
 export default Projects;

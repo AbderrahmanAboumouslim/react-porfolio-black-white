@@ -48,6 +48,11 @@ const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+
+  @media (max-width: 830px) {
+    flex-direction: column;
+  }
 `;
 
 const Box = styled.div`
@@ -67,6 +72,13 @@ const Box = styled.div`
   font-size: calc(0.6rem + 1vw);
   backdrop-filter: blur(3px);
   font-family: "Ubuntu mono", monospace;
+
+  @media (max-width: 830px) {
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem;
+    height: 50vh;
+  }
 `;
 
 const fly = keyframes`
@@ -81,6 +93,10 @@ const Image = styled.div`
   right: 10%;
   width: 20vw;
   animation: ${fly} 3.5s ease infinite;
+
+  @media (max-width: 1229px) {
+    display: none;
+  }
 
   img {
     width: 100%;

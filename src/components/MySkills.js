@@ -64,10 +64,17 @@ const Wrapper = styled.div`
   position: relative;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+  place-items: center;
+  margin: auto;
   background-color: ${(props) => props.theme.body};
+
+  @media (max-width: 830px) {
+    margin-top: 10rem;
+    grid-template-columns: 1fr;
+  }
 
   a {
     text-decoration: none;
@@ -79,12 +86,17 @@ const Box = styled.div`
   width: 30vw;
   height: 60vh;
   padding: 2rem;
+  margin: 2rem 0;
   border: 2px solid ${(props) => props.theme.text};
   color: ${(props) => props.theme.text};
   background-color: ${(props) => props.theme.body};
   line-height: 1.5;
   cursor: pointer;
   z-index: 3;
+
+  @media (max-width: 830px) {
+    width: 65vw;
+  }
 
   font-family: "Ubuntu Mono", monospace;
   display: flex;
@@ -121,6 +133,7 @@ const Brief = styled.div`
   p {
     margin-left: 2rem;
     font-size: 1.2rem;
+    margin-bottom: 2rem;
   }
 `;
 

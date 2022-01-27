@@ -43,7 +43,7 @@ const Box = styled(motion.div)`
   background-color: ${(props) => props.theme.text};
   color: ${(props) => props.theme.body};
   padding: 2rem;
-  margin-right: 9rem;
+  margin-bottom: 6rem;
   border-radius: 50px 0 50px 0;
 
   display: flex;
