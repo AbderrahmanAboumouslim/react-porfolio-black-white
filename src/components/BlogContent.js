@@ -33,6 +33,11 @@ const Box = styled.a`
     background-color: ${(props) => props.theme.text};
     transition: all 1s ease;
   }
+
+  @media (max-width: 900px) {
+    margin: auto;
+    width: 65vw;
+  }
 `;
 
 const Image = styled.div`

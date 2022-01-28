@@ -61,6 +61,12 @@ const Grid = styled.div`
   grid-template-columns: repeat(2, minmax(calc(10rem + 15vw), 1fr));
   grid-gap: calc(1rem + 2vw);
   text-align: center;
+
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
 `;
 
 export default Blog;
