@@ -67,7 +67,7 @@ const LittleBox = styled.div`
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;
-    height: 120%;
+    height: 100%;
   }
 `;
 
