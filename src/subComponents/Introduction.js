@@ -42,16 +42,44 @@ const Box = styled(motion.div)`
   display: flex;
   z-index: 1;
 
-  border: 4px solid transparent;
-  border-image: linear-gradient(45deg, #ff0, #f0f, #f00, #00f, #0f0);
-  border-image-slice: 1;
-  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(
+        to right,
+        ${(props) => props.theme.body} 50%,
+        ${(props) => props.theme.text} 50%
+      )
+      bottom,
+    linear-gradient(
+        to right,
+        ${(props) => props.theme.body} 50%,
+        ${(props) => props.theme.text} 50%
+      )
+      top;
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+
+  border-left: 2px solid ${(props) => props.theme.body};
+  border-right: 2px solid ${(props) => props.theme.text};
 
   @media (max-width: 768px) {
-    width: 70vw;
-    height: 90vh;
+    /* width: 70vw;
+    height: 90vh; */
 
     flex-direction: column;
+    background: none;
+    border: none;
+    border-top: 2px solid ${(props) => props.theme.body};
+    border-bottom: 2px solid ${(props) => props.theme.text};
+    background-image: linear-gradient(
+        ${(props) => props.theme.body} 50%,
+        ${(props) => props.theme.text} 50%
+      ),
+      linear-gradient(
+        ${(props) => props.theme.body} 50%,
+        ${(props) => props.theme.text} 50%
+      );
+    background-size: 2px 100%;
+    background-position: 0 0, 100% 0;
+    background-repeat: no-repeat;
   }
 `;
 
