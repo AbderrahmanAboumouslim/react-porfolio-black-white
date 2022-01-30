@@ -2,8 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Github, Facebook, Twitter, YouTube } from "../components/AllSvg";
 import { DarkTheme } from "../components/Themes";
+import { motion } from "framer-motion";
 
 const SocialMedia = (props) => {
+  const mq = window.matchMedia("(max-width: 40em)").matches;
+
   return (
     <Icons>
       <div>
@@ -45,7 +48,12 @@ const SocialMedia = (props) => {
           />
         </a>
       </div>
-      <Line color={props.theme} />
+      <Line
+        initial={{ height: 0 }}
+        animate={{ height: mq ? "5rem" : "8rem" }}
+        color={props.theme}
+        transition={{ type: "spring", duration: 1, delay: 0.8 }}
+      />
     </Icons>
   );
 };
@@ -57,7 +65,7 @@ const Icons = styled.div`
 
   position: fixed;
   bottom: 0;
-  left: 2rem;
+  left: 1rem;
   z-index: 3;
   a {
     color: inherit;
@@ -67,7 +75,7 @@ const Icons = styled.div`
   }
 `;
 
-const Line = styled.span`
+const Line = styled(motion.span)`
   width: 2px;
   height: 8rem;
   background-color: ${(props) =>

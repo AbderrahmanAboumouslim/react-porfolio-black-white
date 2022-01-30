@@ -20,7 +20,7 @@ const Main = () => {
   const moveX = {
     x: `${path === "work" ? "100%" : "-100%"}`,
   };
-  const mq = window.matchMedia("(max-width: 50em)").matches;
+  const mq = window.matchMedia("(max-width: 768px)").matches;
 
   return (
     <MainContainer
@@ -40,7 +40,11 @@ const Main = () => {
           <SocialMedia theme={centerClick ? "dark" : "light"} />
         )}
 
-        <Contact target="_blank" href="mailto:abdourokinos@gmail.com">
+        <Contact
+          click={mq ? +centerClick : +false}
+          target="_blank"
+          href="mailto:abdourokinos@gmail.com"
+        >
           <motion.h5
             initial={{
               y: -200,
@@ -56,7 +60,11 @@ const Main = () => {
             Message...
           </motion.h5>
         </Contact>
-        <BLOG>
+
+        <BLOG
+          click={mq ? +centerClick : +false}
+          onClick={() => setpath("blog")}
+        >
           <Link to="/blog">
             <motion.h2
               initial={{
@@ -74,6 +82,7 @@ const Main = () => {
             </motion.h2>
           </Link>
         </BLOG>
+
         <PROJECTS click={centerClick}>
           <Link to="/projects">
             <motion.h2
@@ -177,24 +186,36 @@ const Container = styled.div`
 
 const Contact = styled.a`
   text-decoration: none;
-  color: ${(props) => props.theme.text};
+  transition: all 1s linear;
+  color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
   position: absolute;
   top: 2rem;
   right: calc(1rem + 2vw);
-  z-index: 1;
+  z-index: 3;
+
+  @media only screen and (max-width: 768) {
+    color: ${(props) => (props.click ? props.theme.text : props.theme.body)};
+    text-shadow: ${(props) => (props.click ? "0 0 4px #000" : "none")};
+  }
 `;
 
 const BLOG = styled.div`
   position: absolute;
   top: 50%;
   right: calc(1rem + 2vw);
-  z-index: 1;
+  z-index: 3;
+  transform: rotate(90deg) translate(-50%, -50%);
+  @media (max-width: 768) {
+    text-shadow: ${(props) => (props.click ? "0 0 4px #000" : "none")};
+  }
 
   a {
-    color: ${(props) => props.theme.text};
+    color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
     text-decoration: none;
-    display: block;
-    transform: rotate(90deg) translate(-50%, -50%);
+    transition: all 1s linear;
+    @media only screen and (max-width: 50em) {
+      text-shadow: ${(props) => (props.click ? "0 0 4px #000" : "none")};
+    }
   }
 `;
 const PROJECTS = styled.div`
@@ -207,8 +228,10 @@ const PROJECTS = styled.div`
   a {
     color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
     text-decoration: none;
-    display: block;
     transition: all 1s linear;
+    @media only screen and (max-width: 50em) {
+      text-shadow: ${(props) => (props.click ? "0 0 4px #000" : "none")};
+    }
   }
 `;
 
@@ -229,6 +252,9 @@ const ABOUT = styled.div`
     color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
     text-decoration: none;
     transition: all 1s linear;
+    @media only screen and (max-width: 50em) {
+      text-shadow: ${(props) => (props.click ? "0 0 4px #000" : "none")};
+    }
   }
 `;
 const SKILLS = styled.div`
@@ -237,6 +263,7 @@ const SKILLS = styled.div`
   a {
     color: ${(props) => props.theme.text};
     text-decoration: none;
+    transition: all 1s linear;
   }
 `;
 

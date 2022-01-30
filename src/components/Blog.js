@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
-  width: 100vw;
+  /* width: 100vw; */
 `;
 
 const Container = styled.div`
@@ -63,9 +63,7 @@ const Grid = styled.div`
   text-align: center;
 
   @media (max-width: 900px) {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
+    grid-template-columns: 100%;
   }
 `;
 

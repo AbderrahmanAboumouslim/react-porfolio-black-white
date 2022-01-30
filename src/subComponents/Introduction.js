@@ -15,7 +15,7 @@ const Introduction = () => {
           <h1>Hi,</h1>
           <h3>I'm Aboumouslim.</h3>
           <h6>
-            Front-end web developer, specializiing in mostly JS (ReactJS).
+            Front-end web developer, specializiing in mostly JS and ReactJS.
           </h6>
         </Text>
       </LittleBox>
@@ -84,10 +84,14 @@ const Box = styled(motion.div)`
 `;
 
 const LittleBox = styled.div`
-  width: 100%;
+  width: 50%;
   position: relative;
   display: flex;
-  height: 100%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 50%;
+  }
 
   img {
     position: absolute;
@@ -95,7 +99,11 @@ const LittleBox = styled.div`
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;
-    height: 100%;
+    height: auto;
+
+    @media (max-width: 768px) {
+      width: 80%;
+    }
   }
 `;
 
