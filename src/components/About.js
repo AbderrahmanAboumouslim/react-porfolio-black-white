@@ -1,48 +1,70 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
+import { motion } from "framer-motion";
 import styled, { ThemeProvider, keyframes } from "styled-components";
 import { DarkTheme } from "./Themes";
-import LogoC from "../subComponents/LogoC";
-import PowerButton from "../subComponents/PowerButton";
-import SocialMedia from "../subComponents/SocialMedia";
-import ParticlesComponent from "../subComponents/ParticlesComponent";
 import pic from "../assets/Images/spaceman.png";
+import Loading from "../subComponents/Loading";
+
+const SocialMedia = lazy(() => import("../subComponents/SocialMedia"));
+const PowerButton = lazy(() => import("../subComponents/PowerButton"));
+const LogoC = lazy(() => import("../subComponents/LogoC"));
+const ParticlesComponent = lazy(() =>
+  import("../subComponents/ParticlesComponent")
+);
 
 const About = () => {
   return (
     <ThemeProvider theme={DarkTheme}>
-      <Wrapper>
-        {/* reused components */}
-        <LogoC theme="dark" />
-        <SocialMedia theme="dark" />
-        <PowerButton />
-        <ParticlesComponent theme="dark" />
+      <Suspense fallback={<Loading />}>
+        <Wrapper
+          key="skills"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 0.5 } }}
+          exit={{ opacity: 0, transition: { duration: 0.5 } }}
+        >
+          {/* reused components */}
+          <LogoC theme="dark" />
+          <SocialMedia theme="dark" />
+          <PowerButton />
+          <ParticlesComponent theme="dark" />
 
-        {/* about */}
-        <Box>
-          Hello ! I'm Aboumouslim Abderrahman.
-          <br />
-          <br />
-          Front-end Developer & Visual Designer.
-          <br />
-          <br />I design and develop responsive, optimized and efficient
-          websites. Available for all kind of jobs.
-          <br />
-          <br />
-          I'm interested in the whole frontend stack like trying building
-          projects from scratch. I'm an independent programmer. I love to write
-          codes and read books.
-        </Box>
-        <Image>
-          <img src={pic} alt="space man" />
-        </Image>
+          {/* about */}
+          <Box
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 1, delay: 1 } }}
+          >
+            Hello ! I'm Aboumouslim Abderrahman.
+            <br />
+            <br />
+            Front-end Developer & Visual Designer.
+            <br />
+            <br />I design and develop responsive, optimized and efficient
+            websites. Available for all kind of jobs.
+            <br />
+            <br />
+            I'm interested in the whole frontend stack like trying building
+            projects from scratch. I'm an independent programmer. I love to
+            write codes and read books.
+          </Box>
+          <Image
+            initial={{ right: "-20%", top: "100%" }}
+            animate={{
+              top: "30%",
+              right: "10%",
+              transition: { duration: 2, delay: 0.5 },
+            }}
+          >
+            <img src={pic} alt="space man" />
+          </Image>
 
-        {/* end of about */}
-      </Wrapper>
+          {/* end of about */}
+        </Wrapper>
+      </Suspense>
     </ThemeProvider>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   background-color: ${(props) => props.theme.body};
   position: relative;
   width: 100vw;
@@ -55,7 +77,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   position: absolute;
   top: 10rem;
   left: calc(5rem + 5vw);
@@ -87,10 +109,9 @@ const fly = keyframes`
 100%{transform: translateY(-20px)}
 `;
 
-const Image = styled.div`
+const Image = styled(motion.div)`
   position: absolute;
-  top: 30%;
-  right: 10%;
+
   width: 20vw;
   animation: ${fly} 3.5s ease infinite;
 

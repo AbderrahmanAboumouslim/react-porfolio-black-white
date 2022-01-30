@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MyImage from "../assets/Images/profile-img.png";
 import { motion } from "framer-motion";
 
 const Introduction = () => {
+  const [height, setHeight] = useState("55vh");
+
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      setHeight("70vh");
+    }
+    if (window.matchMedia("(max-width: 320px)").matches) {
+      setHeight("60vh");
+    }
+  }, []);
+
   return (
     <Box
       initial={{ height: 0 }}
-      animate={{ height: "75vh" }}
+      animate={{ height: height }}
       transition={{ type: "spring", duration: 2, delay: 1 }}
     >
       <LittleBox className="a">
@@ -101,29 +112,41 @@ const LittleBox = styled.div`
     width: 100%;
     height: auto;
 
-    @media (max-width: 768px) {
-      width: 80%;
+    @media (max-width: 800px) {
+      width: 60%;
+    }
+    @media (max-width: 640px) {
+      width: 75%;
+    }
+    @media (max-width: 320px) {
+      width: 90%;
     }
   }
 `;
 
 const Text = styled.div`
   font-size: calc(1em + 1.5vw);
-  padding: 2rem;
+  padding: 0 2rem;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   color: ${(props) => props.theme.body};
 
-  @media (max-width: 768px) {
-    transform: scale(0.9);
-    padding: 0.5rem;
-  }
-
   & > *:last-child {
     color: ${(props) => `rgba(${props.theme.bodyRgba}, 0.5)`};
     font-size: calc(0.5rem + 1.5vw);
     font-weight: 300;
+    @media (max-width: 768px) {
+      font-size: calc(0.5rem + 1vw);
+    }
+  }
+
+  @media (max-width: 640px) {
+    font-size: calc(1rem + 1.5vw);
+  }
+  @media (max-width: 320px) {
+    padding: 1rem;
   }
 `;
 

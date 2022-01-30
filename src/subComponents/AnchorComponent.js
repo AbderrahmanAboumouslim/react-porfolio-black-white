@@ -5,7 +5,6 @@ import { Anchor, Chain } from "../components/AllSvg";
 const AnchorComponent = (props) => {
   const ref = useRef(null);
   const hideRef = useRef(null);
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,6 +53,10 @@ const AnchorComponent = (props) => {
 
 const Wrapper = styled.div`
   position: relative;
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 `;
 
 const Slider = styled.div`
@@ -74,8 +77,7 @@ const Slider = styled.div`
 const PreScroll = styled.div`
   position: absolute;
   top: 0;
-  right: 3rem;
+  right: 2rem;
 `;
 
 export default AnchorComponent;
-/////////////////////////////////

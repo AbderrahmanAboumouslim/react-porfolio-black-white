@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import styled, { keyframes } from "styled-components";
-import PowerButton from "../subComponents/PowerButton";
-import LogoC from "../subComponents/LogoC";
 import { YinYang } from "../components/AllSvg";
-import SocialMedia from "../subComponents/SocialMedia";
 import { Link } from "react-router-dom";
 import { GiClick } from "react-icons/gi";
 import Introduction from "../subComponents/Introduction";
 import { motion } from "framer-motion";
+import Loading from "../subComponents/Loading";
+
+const SocialMedia = lazy(() => import("../subComponents/SocialMedia"));
+const PowerButton = lazy(() => import("../subComponents/PowerButton"));
+const LogoC = lazy(() => import("../subComponents/LogoC"));
+
 const Main = () => {
   const [centerClick, setCenterClick] = useState(false);
   const handleClick = () => setCenterClick(!centerClick);
@@ -23,50 +26,30 @@ const Main = () => {
   const mq = window.matchMedia("(max-width: 768px)").matches;
 
   return (
-    <MainContainer
-      key="modal"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={path === "about" || path === "skills" ? moveY : moveX}
-      transition={{ duration: 0.5 }}
-    >
-      <Container>
-        <PowerButton />
-        <LogoC theme={centerClick ? "dark" : "light"} />
+    <Suspense fallback={<Loading />}>
+      <MainContainer
+        key="modal"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={path === "about" || path === "skills" ? moveY : moveX}
+        transition={{ duration: 0.5 }}
+      >
+        <Container>
+          <PowerButton />
+          <LogoC theme={centerClick ? "dark" : "light"} />
 
-        {mq ? (
-          <SocialMedia theme="light" />
-        ) : (
-          <SocialMedia theme={centerClick ? "dark" : "light"} />
-        )}
+          {mq ? (
+            <SocialMedia theme="light" />
+          ) : (
+            <SocialMedia theme={centerClick ? "dark" : "light"} />
+          )}
 
-        <Contact
-          click={mq ? +centerClick : +false}
-          target="_blank"
-          href="mailto:abdourokinos@gmail.com"
-        >
-          <motion.h5
-            initial={{
-              y: -200,
-              transition: { type: "spring", duration: 1.5, delay: 1 },
-            }}
-            animate={{
-              y: 0,
-              transition: { type: "spring", duration: 1.5, delay: 1 },
-            }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+          <Contact
+            click={mq ? +centerClick : +false}
+            target="_blank"
+            href="mailto:abdourokinos@gmail.com"
           >
-            Message...
-          </motion.h5>
-        </Contact>
-
-        <BLOG
-          click={mq ? +centerClick : +false}
-          onClick={() => setpath("blog")}
-        >
-          <Link to="/blog">
-            <motion.h2
+            <motion.h5
               initial={{
                 y: -200,
                 transition: { type: "spring", duration: 1.5, delay: 1 },
@@ -78,35 +61,16 @@ const Main = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              Blog
-            </motion.h2>
-          </Link>
-        </BLOG>
+              Message...
+            </motion.h5>
+          </Contact>
 
-        <PROJECTS click={centerClick}>
-          <Link to="/projects">
-            <motion.h2
-              onClick={() => setpath("projects")}
-              initial={{
-                y: -200,
-                transition: { type: "spring", duration: 1.5, delay: 1 },
-              }}
-              animate={{
-                y: 0,
-                transition: { type: "spring", duration: 1.5, delay: 1 },
-              }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              Projects
-            </motion.h2>
-          </Link>
-        </PROJECTS>
-        <BottomComponents>
-          <ABOUT click={centerClick}>
-            <Link to="/about">
+          <BLOG
+            click={mq ? +centerClick : +false}
+            onClick={() => setpath("blog")}
+          >
+            <Link to="/blog">
               <motion.h2
-                onClick={() => setpath("about")}
                 initial={{
                   y: -200,
                   transition: { type: "spring", duration: 1.5, delay: 1 },
@@ -118,14 +82,15 @@ const Main = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                About
+                Blog
               </motion.h2>
             </Link>
-          </ABOUT>
-          <SKILLS>
-            <Link to="/skills">
+          </BLOG>
+
+          <PROJECTS click={centerClick}>
+            <Link to="/projects">
               <motion.h2
-                onClick={() => setpath("skills")}
+                onClick={() => setpath("projects")}
                 initial={{
                   y: -200,
                   transition: { type: "spring", duration: 1.5, delay: 1 },
@@ -137,30 +102,70 @@ const Main = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                Skills
+                Projects
               </motion.h2>
             </Link>
-          </SKILLS>
-        </BottomComponents>
-        <Center click={centerClick} onClick={() => handleClick()}>
-          <YinYang
-            width={centerClick ? 90 : 170}
-            height={centerClick ? 90 : 170}
-            fill="currentColor"
+          </PROJECTS>
+          <BottomComponents>
+            <ABOUT click={centerClick}>
+              <Link to="/about">
+                <motion.h2
+                  onClick={() => setpath("about")}
+                  initial={{
+                    y: -200,
+                    transition: { type: "spring", duration: 1.5, delay: 1 },
+                  }}
+                  animate={{
+                    y: 0,
+                    transition: { type: "spring", duration: 1.5, delay: 1 },
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  About
+                </motion.h2>
+              </Link>
+            </ABOUT>
+            <SKILLS>
+              <Link to="/skills">
+                <motion.h2
+                  onClick={() => setpath("skills")}
+                  initial={{
+                    y: -200,
+                    transition: { type: "spring", duration: 1.5, delay: 1 },
+                  }}
+                  animate={{
+                    y: 0,
+                    transition: { type: "spring", duration: 1.5, delay: 1 },
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  Skills
+                </motion.h2>
+              </Link>
+            </SKILLS>
+          </BottomComponents>
+          <Center click={centerClick} onClick={() => handleClick()}>
+            <YinYang
+              width={centerClick ? 90 : 170}
+              height={centerClick ? 90 : 170}
+              fill="currentColor"
+            />
+            <span>
+              <GiClick />
+            </span>
+          </Center>
+          <DarkSide click={centerClick} />
+        </Container>
+        {centerClick ? (
+          <Introduction
+            theme={centerClick ? "dark" : "light"}
+            centerClick={centerClick}
           />
-          <span>
-            <GiClick />
-          </span>
-        </Center>
-        <DarkSide click={centerClick} />
-      </Container>
-      {centerClick ? (
-        <Introduction
-          theme={centerClick ? "dark" : "light"}
-          centerClick={centerClick}
-        />
-      ) : null}
-    </MainContainer>
+        ) : null}
+      </MainContainer>
+    </Suspense>
   );
 };
 
@@ -221,7 +226,7 @@ const BLOG = styled.div`
 const PROJECTS = styled.div`
   position: absolute;
   top: 50%;
-  left: calc(3rem + 2vw);
+  left: calc(1rem + 2vw);
   z-index: 2;
   transform: translate(-50%, -50%) rotate(-90deg);
 

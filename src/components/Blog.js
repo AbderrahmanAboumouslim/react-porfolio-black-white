@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import styled from "styled-components";
 import blogImg from "../assets/Images/blog-bcg.jpg";
-import LogoC from "../subComponents/LogoC";
-import PowerButton from "../subComponents/PowerButton";
-import SocialMedia from "../subComponents/SocialMedia";
 import { Blogs } from "../data/Blogs";
 import BlogContent from "./BlogContent";
 import AnchorComponent from "../subComponents/AnchorComponent";
+import Loading from "../subComponents/Loading";
+import { motion } from "framer-motion";
+
+const SocialMedia = lazy(() => import("../subComponents/SocialMedia"));
+const PowerButton = lazy(() => import("../subComponents/PowerButton"));
+const LogoC = lazy(() => import("../subComponents/LogoC"));
 
 const Blog = () => {
   const [number, setNumber] = useState(0);
@@ -16,21 +19,28 @@ const Blog = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <Container>
-        <LogoC />
-        <PowerButton />
-        <SocialMedia />
-        <AnchorComponent number={number} />
-        <Center>
-          <Grid>
-            {Blogs.map((blog) => {
-              return <BlogContent {...blog} key={blog.id} />;
-            })}
-          </Grid>
-        </Center>
-      </Container>
-    </Wrapper>
+    <Suspense fallback={<Loading />}>
+      <Wrapper
+        variants={container}
+        initial="hidden"
+        animate="show"
+        exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      >
+        <Container>
+          <LogoC />
+          <PowerButton />
+          <SocialMedia />
+          <AnchorComponent number={number} />
+          <Center>
+            <Grid variants={container} initial="hidden" animate="show">
+              {Blogs.map((blog) => {
+                return <BlogContent {...blog} key={blog.id} />;
+              })}
+            </Grid>
+          </Center>
+        </Container>
+      </Wrapper>
+    </Suspense>
   );
 };
 
@@ -56,7 +66,7 @@ const Center = styled.div`
   padding-top: 10rem;
 `;
 
-const Grid = styled.div`
+const Grid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(2, minmax(calc(10rem + 15vw), 1fr));
   grid-gap: calc(1rem + 2vw);
@@ -66,5 +76,16 @@ const Grid = styled.div`
     grid-template-columns: 100%;
   }
 `;
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.5,
+      duration: 0.5,
+    },
+  },
+};
 
 export default Blog;
