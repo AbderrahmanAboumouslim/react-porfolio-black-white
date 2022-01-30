@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import PowerButton from "../subComponents/PowerButton";
 import LogoC from "../subComponents/LogoC";
@@ -12,39 +12,83 @@ const Main = () => {
   const [centerClick, setCenterClick] = useState(false);
   const handleClick = () => setCenterClick(!centerClick);
 
+  const [path, setpath] = useState("");
+
+  const moveY = {
+    y: "-100%",
+  };
+  const moveX = {
+    x: `${path === "work" ? "100%" : "-100%"}`,
+  };
+  const mq = window.matchMedia("(max-width: 50em)").matches;
+
   return (
-    <MainContainer>
+    <MainContainer
+      key="modal"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={path === "about" || path === "skills" ? moveY : moveX}
+      transition={{ duration: 0.5 }}
+    >
       <Container>
         <PowerButton />
         <LogoC theme={centerClick ? "dark" : "light"} />
-        <SocialMedia
-          theme={
-            centerClick === false
-              ? "light"
-              : "dark" && window.innerWidth <= 768
-              ? centerClick
-                ? "light"
-                : "dark"
-              : !centerClick
-              ? "light"
-              : "dark"
-          }
-        />
+
+        {mq ? (
+          <SocialMedia theme="light" />
+        ) : (
+          <SocialMedia theme={centerClick ? "dark" : "light"} />
+        )}
+
         <Contact target="_blank" href="mailto:abdourokinos@gmail.com">
-          <motion.h5 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <motion.h5
+            initial={{
+              y: -200,
+              transition: { type: "spring", duration: 1.5, delay: 1 },
+            }}
+            animate={{
+              y: 0,
+              transition: { type: "spring", duration: 1.5, delay: 1 },
+            }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
             Message...
           </motion.h5>
         </Contact>
         <BLOG>
           <Link to="/blog">
-            <motion.h2 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <motion.h2
+              initial={{
+                y: -200,
+                transition: { type: "spring", duration: 1.5, delay: 1 },
+              }}
+              animate={{
+                y: 0,
+                transition: { type: "spring", duration: 1.5, delay: 1 },
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
               Blog
             </motion.h2>
           </Link>
         </BLOG>
         <PROJECTS click={centerClick}>
           <Link to="/projects">
-            <motion.h2 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <motion.h2
+              onClick={() => setpath("projects")}
+              initial={{
+                y: -200,
+                transition: { type: "spring", duration: 1.5, delay: 1 },
+              }}
+              animate={{
+                y: 0,
+                transition: { type: "spring", duration: 1.5, delay: 1 },
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
               Projects
             </motion.h2>
           </Link>
@@ -52,14 +96,38 @@ const Main = () => {
         <BottomComponents>
           <ABOUT click={centerClick}>
             <Link to="/about">
-              <motion.h2 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <motion.h2
+                onClick={() => setpath("about")}
+                initial={{
+                  y: -200,
+                  transition: { type: "spring", duration: 1.5, delay: 1 },
+                }}
+                animate={{
+                  y: 0,
+                  transition: { type: "spring", duration: 1.5, delay: 1 },
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 About
               </motion.h2>
             </Link>
           </ABOUT>
           <SKILLS>
             <Link to="/skills">
-              <motion.h2 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <motion.h2
+                onClick={() => setpath("skills")}
+                initial={{
+                  y: -200,
+                  transition: { type: "spring", duration: 1.5, delay: 1 },
+                }}
+                animate={{
+                  y: 0,
+                  transition: { type: "spring", duration: 1.5, delay: 1 },
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 Skills
               </motion.h2>
             </Link>
