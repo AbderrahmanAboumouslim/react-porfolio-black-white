@@ -226,7 +226,7 @@ const BLOG = styled.div`
 const PROJECTS = styled.div`
   position: absolute;
   top: 50%;
-  left: calc(1rem + 2vw);
+  left: calc(2.5rem + 2vw);
   z-index: 2;
   transform: translate(-50%, -50%) rotate(-90deg);
 
